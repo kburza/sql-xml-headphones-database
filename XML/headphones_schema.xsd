@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="headphoneData">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="country" type="CountryType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="material" type="MaterialType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="headphone" type="HeadphoneType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="company" type="CompanyType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="yearEntry" type="YearEntryType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="CountryType">
+        <xs:sequence>
+            <xs:element name="countryID" type="xs:positiveInteger"/>
+            <xs:element name="countryName" type="xs:string"/>
+            <xs:element name="population" type="xs:nonNegativeInteger"/>
+            <xs:element name="continent" type="xs:string"/>
+            <xs:element name="language" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="MaterialType">
+        <xs:sequence>
+            <xs:element name="materialID" type="xs:positiveInteger"/>
+            <xs:element name="materialName" type="xs:string"/>
+            <xs:element name="density" type="xs:decimal"/>
+            <xs:element name="rarity" type="xs:string"/>
+            <xs:element name="recyclable" type="xs:string"/>
+            <xs:element name="durability" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+<xs:complexType name="HeadphoneType">
+    <xs:sequence>
+        <xs:element name="headphoneID" type="xs:positiveInteger"/>
+        <xs:element name="headphoneName" type="xs:string"/>
+        <xs:element name="type" type="xs:string"/>
+        <xs:element name="colour" type="xs:string"/>
+        <xs:element name="model" type="xs:string"/>
+        <xs:element name="weight" type="xs:decimal"/>
+        <xs:element name="price" type="xs:integer"/>
+        <xs:element name="yearID" type="xs:positiveInteger"/>
+        <xs:element name="companyID" type="xs:positiveInteger"/>
+        <xs:element name="countryID" type="xs:positiveInteger"/>
+        <xs:element name="material" type="xs:string"/>
+        <xs:element name="wireless" type="xs:string"/>
+        <xs:element name="noise_cancellation" type="xs:string"/>
+        <xs:element name="microphone" type="xs:string"/>
+    </xs:sequence>
+</xs:complexType>
+    <xs:complexType name="CompanyType">
+        <xs:sequence>
+            <xs:element name="companyID" type="xs:integer"/>
+            <xs:element name="companyName" type="xs:string"/>
+            <xs:element name="yearFounded" type="xs:integer" minOccurs="0"/>
+            <xs:element name="numberOfEmployees" type="xs:integer" minOccurs="0"/>
+            <xs:element name="headquarters" type="xs:string" minOccurs="0"/>
+            <xs:element name="CEO" type="xs:string" minOccurs="0"/>
+            <xs:element name="founder" type="xs:string" minOccurs="0"/>
+            <xs:element name="yearID" type="xs:integer" minOccurs="0"/>
+            <xs:element name="countryID" type="xs:integer" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="YearEntryType">
+        <xs:sequence>
+            <xs:element name="yearID" type="xs:integer"/>
+            <xs:element name="year" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

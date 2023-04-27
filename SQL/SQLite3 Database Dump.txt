@@ -1,0 +1,126 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "country" (
+	"countryName"	VARCHAR(255) NOT NULL,
+	"population"	INT,
+	"continent"	VARCHAR(255),
+	"language"	VARCHAR(255),
+	"countryID"	INTEGER,
+	PRIMARY KEY("countryID"),
+	CONSTRAINT "ck_country" UNIQUE("countryName")
+);
+INSERT INTO country VALUES('United States',331000000,'North America','English',1);
+INSERT INTO country VALUES('Japan',126000000,'Asia','Japanese',2);
+INSERT INTO country VALUES('Germany',83000000,'Europe','German',3);
+INSERT INTO country VALUES('Australia',8000000,'Australia','English',4);
+INSERT INTO country VALUES('South Korea',51000000,'Asia','Korean',5);
+INSERT INTO country VALUES('Austria',26000000,'Europe','German',6);
+INSERT INTO country VALUES('Canada',38000000,'North America','English/French',7);
+INSERT INTO country VALUES('Italy',60000000,'Europe','Italian',8);
+INSERT INTO country VALUES('Sweden',10000000,'Europe','Swedish',9);
+INSERT INTO country VALUES('United Kingdom',68000000,'Europe','English',10);
+CREATE TABLE IF NOT EXISTS "material" (
+	"materialID"	INTEGER,
+	"materialName"	VARCHAR(255) NOT NULL,
+	"density"	DECIMAL(10, 2),
+	"rarity"	VARCHAR(255),
+	"recyclable"	VARCHAR(255),
+	"durability"	VARCHAR(255),
+	PRIMARY KEY("materialID" AUTOINCREMENT),
+	CONSTRAINT "ck_material" UNIQUE("materialName")
+);
+INSERT INTO material VALUES(1,'Plastic',1.1999999999999999644,'Low','Yes','Low');
+INSERT INTO material VALUES(2,'Leather',0.9,'Medium','No','High');
+INSERT INTO material VALUES(3,'Metal',7.7999999999999998223,'High','Yes','High');
+INSERT INTO material VALUES(4,'Foam',0.05,'Medium','Yes','Medium');
+INSERT INTO material VALUES(5,'Aluminum',2.7000000000000001776,'High','Yes','High');
+INSERT INTO material VALUES(6,'Mesh',0.01,'Low','Yes','Low');
+INSERT INTO material VALUES(7,'Acoustic fabric',0.3,'Medium','Yes','Medium');
+INSERT INTO material VALUES(8,'Velour',0.2,'Medium','Yes','Low');
+INSERT INTO material VALUES(9,'Carbon fiber',1.5,'High','Yes','High');
+INSERT INTO material VALUES(10,'Wood',1.5,'Low','Yes','Low');
+CREATE TABLE IF NOT EXISTS "headphone" (
+	"headphoneID"	INTEGER,
+	"headphoneName"	VARCHAR(255) NOT NULL,
+	"type"	VARCHAR(255),
+	"colour"	VARCHAR(255),
+	"model"	VARCHAR(255),
+	"weight"	INT,
+	"price"	INT,
+	"yearID"	INT NOT NULL,
+	"companyID"	INT NOT NULL,
+	"countryID"	INT NOT NULL,
+	"material"	VARCHAR(255),
+	"wireless"	VARCHAR(255),
+	"noise cancellation"	VARCHAR(255),
+	"microphone"	VARCHAR(255),
+	CONSTRAINT "fk_year" FOREIGN KEY("yearID") REFERENCES "year"("yearID"),
+	CONSTRAINT "fk_country" FOREIGN KEY("countryID") REFERENCES "country"("countryID"),
+	CONSTRAINT "fk_company" FOREIGN KEY("companyID") REFERENCES "company"("companyID"),
+	CONSTRAINT "ck_headphone" UNIQUE("headphoneName"),
+	PRIMARY KEY("headphoneID" AUTOINCREMENT)
+);
+INSERT INTO headphone VALUES(1,'Bose QuietComfort 35','Over-Ear','Black','QC35 II',0.31000000000000000888,329,9,1,2,'Plastic, Leather, Metal','Yes','Yes','Yes');
+INSERT INTO headphone VALUES(2,'Sony WH-1000XM4','Over-Ear','Silver','WH-1000XM4',0.56000000000000005329,348,10,2,3,'Plastic, Leather, Metal','Yes','Yes','Yes');
+INSERT INTO headphone VALUES(3,'Sennheiser HD 660 S','Over-Ear','Black','HD 660 S',0.56999999999999992894,499,7,3,1,'Metal, Plastic, Foam, Leather','No','No','No');
+INSERT INTO headphone VALUES(4,'Apple AirPods Max','Over-Ear','Silver','Airpods Max',0.6,549,10,4,4,'Aluminum, Metal, Mesh, Memory foam, Acoustic fabric, Leather','Yes','Yes','Yes');
+INSERT INTO headphone VALUES(5,'Jabra Elite 85h','Over-Ear','Black','Elite 85h',0.65,249,9,5,5,'Plastic, Leather, Metal','Yes','Yes','Yes');
+INSERT INTO headphone VALUES(6,'AKG K712 Pro','Over-Ear','Black','K712 Pro',0.54000000000000003552,349,3,6,6,'Plastic, Leather, Metal','No','No','No');
+INSERT INTO headphone VALUES(7,'Beyerdynamic DT 990 Pro','Over-Ear','Black','DT 990 Pro',0.56000000000000005329,179,21,7,1,'Plastic, Metal, Velour','No','No','No');
+INSERT INTO headphone VALUES(8,'Audio-Technica ATH-M50x','Over-Ear','Black','ATH-M50x',0.39000000000000003552,149,4,8,7,'Plastic, Metal, Leather','No','No','No');
+INSERT INTO headphone VALUES(9,'Grado SR325e','On-Ear','Brown','SR325e',0.55,295,4,9,8,'Metal, Foam, Leather','No','No','No');
+INSERT INTO headphone VALUES(10,'Bowers & Wilkins PX7','Over-Ear','Space Gray','PX7',0.74000000000000003552,349,9,10,9,'Carbon fiber, Metal, Leather, Nylon','Yes','Yes','Yes');
+CREATE TABLE IF NOT EXISTS "company" (
+	"companyID"	INTEGER,
+	"companyName"	VARCHAR(255) NOT NULL,
+	"CEO"	VARCHAR(255),
+	"founder"	VARCHAR(255),
+	"yearID"	INT NOT NULL,
+	"countryID"	INT NOT NULL,
+	CONSTRAINT "fk_country" FOREIGN KEY("countryID") REFERENCES "country"("countryID"),
+	CONSTRAINT "fk_year" FOREIGN KEY("yearID") REFERENCES "year"("yearID"),
+	PRIMARY KEY("companyID" AUTOINCREMENT),
+	CONSTRAINT "ck_company" UNIQUE("companyName")
+);
+INSERT INTO company VALUES(1,'Sennheiser','Andreas Sennheiser, Daniel Sennheiser','Fritz Sennheiser',11,3);
+INSERT INTO company VALUES(2,'Sony','Kenichiro Yoshida','Akio Morita, Masaru Ibuka',12,2);
+INSERT INTO company VALUES(3,'Bose','Lila Snyder','Amar Bose',13,1);
+INSERT INTO company VALUES(4,'Apple','Tim Cook','Steve Jobs, Ronald Wayne, Steve Wozniak',14,1);
+INSERT INTO company VALUES(5,'Jabra','Rene Svendsen-Tune','Brean Murray, Randy Granovetter',15,5);
+INSERT INTO company VALUES(6,'AKG','Mr. Ayal Sharvit','Rudolf Gorike, Ernst Pless',16,6);
+INSERT INTO company VALUES(7,'Beyerdynamic','Edgar van Velzen','Eugen Beyer',17,1);
+INSERT INTO company VALUES(8,'Audio-Technica','Philip Cajka','Hideo Matsushita',18,7);
+INSERT INTO company VALUES(9,'Grado','John Grado','Joseph Grado',19,8);
+INSERT INTO company VALUES(10,'Bower & Wilkins','Gregory Lee','John Bowers',20,9);
+CREATE TABLE IF NOT EXISTS "year" (
+	"yearID"	INTEGER NOT NULL,
+	"year"	INT NOT NULL,
+	PRIMARY KEY("yearID" AUTOINCREMENT)
+);
+INSERT INTO year VALUES(1,2011);
+INSERT INTO year VALUES(2,2012);
+INSERT INTO year VALUES(3,2013);
+INSERT INTO year VALUES(4,2014);
+INSERT INTO year VALUES(5,2015);
+INSERT INTO year VALUES(6,2016);
+INSERT INTO year VALUES(7,2017);
+INSERT INTO year VALUES(8,2018);
+INSERT INTO year VALUES(9,2019);
+INSERT INTO year VALUES(10,2020);
+INSERT INTO year VALUES(11,1945);
+INSERT INTO year VALUES(12,1946);
+INSERT INTO year VALUES(13,1964);
+INSERT INTO year VALUES(14,1976);
+INSERT INTO year VALUES(15,1983);
+INSERT INTO year VALUES(16,1947);
+INSERT INTO year VALUES(17,1924);
+INSERT INTO year VALUES(18,1962);
+INSERT INTO year VALUES(19,1953);
+INSERT INTO year VALUES(20,1966);
+INSERT INTO year VALUES(21,2004);
+DELETE FROM sqlite_sequence;
+INSERT INTO sqlite_sequence VALUES('material',10);
+INSERT INTO sqlite_sequence VALUES('headphone',10);
+INSERT INTO sqlite_sequence VALUES('company',10);
+INSERT INTO sqlite_sequence VALUES('year',2004);
+COMMIT;
